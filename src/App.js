@@ -15,7 +15,64 @@ import Classe from "./componetes/Classe"
 import Carro from "./componetes/Carro"
 import Globais from "./componetes/Globais"
 import Info from "./componetes/Info"
+// import Pagina1 from "./componetes/Pagina1";
+// import Pagina2 from "./componetes/Pagina2";
+import TabelaIMC from "./componetes/Tabela"
+import Altura from "./componetes/Altura";
+import Peso from "./componetes/Peso";
+import CalcularIMC from "./componetes/CalculatIMC";
+import ResultadoIMC from "./componetes/ResultadoIMC"
 
+const carros=[
+    {categoria: "Esporte", preco: "1100",modelo:"Golf GTI"},
+    {categoria: "Esporte", preco: "1200",modelo:"Camaro"},
+    {categoria: "SUV", preco: "850",modelo:"HRV"},
+    {categoria: "SUV", preco: "830",modelo:"T-Cross"},
+    {categoria: "Utilitario", preco: "1200",modelo:"Hillux"},
+    {categoria: "Utilitario", preco: "900",modelo:"Ranger"},
+]
+const linhas=(cat)=>{
+    const li =[]
+    carros.forEach(
+        (carro)=>{
+            if (carro.categoria.toUpperCase()===cat.toUpperCase() || cat.toUpperCase() === ""){
+                li.push(
+                    <tr>
+                        <td>{carro.categoria}</td>
+                        <td>{carro.preco}</td>
+                        <td>{carro.modelo}</td>
+                    </tr>
+                )
+            }
+        }
+    )
+    return li
+}
+const TabelaCarros=(cat)=>{
+    return(
+        <table border="1" style={{borderCollapse:"collapse"}}>
+          <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Preco</th>
+                <th>Modelo</th>
+            </tr>
+          </thead>
+            <tbody>
+              {linhas(cat)}
+            </tbody>
+        </table>
+    )
+}
+
+const pesquisaCategoria=(cat,scat)=>{
+    return(
+        <div>
+            <label>Digte uma categoria</label>
+            <input type="text" value={cat} onChange={(e) => scat(e.target.value)}/>
+        </div>
+    )
+}
 
 
 export default function App(){
@@ -127,6 +184,40 @@ export default function App(){
         localStorage.removeItem(chave)
     }
 
+    // useEffect(
+    //     ()=>{
+    //         const url=window.location.href
+    //         const res=url.split('?')
+    //         setPagina(res[1])
+    //
+    //     }
+    // )
+
+    // const linksPaginas=(pagina)=>{
+    //     if(pagina===1){
+    //         // _self === carrega na mesma janela
+    //         window.open("http://localhost:3000?1","_self")
+    //     }else if(pagina ===2){
+    //         window.open("http://localhost:3000?2","_self")
+    //     }
+    // }
+    //
+    // const retornarPagina=()=>{
+    //     if(pagina===1){
+    //         return <Pagina1/>
+    //     }else if(pagina===2){
+    //         return <Pagina2/>
+    //     }else{
+    //         return <div>
+    //                  <button onClick={()=>linksPaginas(1)}>Pagina 1</button>
+    //                  <button onClick={()=>linksPaginas(2)}>Pagina 2</button>
+    //
+    //                </div>
+    //     }
+    // }
+
+
+
 
     // localStorage.setItem("nome","Gabriel")
     // localStorage.getItem("nome")
@@ -143,6 +234,12 @@ export default function App(){
     const [notas,setNotas] = useState({"nota1":"0","nota2":"0","nota3":"0","nota4":"0"})
     const [contagem,setContagem] = useState(0)
     const [lnome,lsetNome] = useState()
+    // const [pagina,setPagina]=useState(0)
+    const[categoria,setCategoria]=useState("")
+    const[peso,setPeso]=useState(0)
+    const[altura,setAltura]=useState(0)
+    const[resultado,setResultado]=useState(0)
+
 
 
     const vermelho ={color:"#f00"}
@@ -153,6 +250,23 @@ export default function App(){
         <>
             <section className="caixa">
                 <Relogio/>
+
+                <Peso p={peso} sp={setPeso}/>
+                <Altura a={altura} sa={setAltura}/>
+                <CalcularIMC p={peso} a={altura} sr={setResultado}/>
+                <br/>
+                <ResultadoIMC r={resultado}/>
+                <TabelaIMC/>
+                <br/>
+
+                {pesquisaCategoria(categoria,setCategoria)}
+                <br/>
+                {TabelaCarros(categoria)}
+                {/*{retornarPagina()}*/}
+
+
+                {/*<button onClick={() => Pagina1}>Pagina 1</button>*/}
+                {/*<button onClick={() => Pagina2}>Pagina 2</button>*/}
 
                 <p>{"Canal: " + Globais.canal}</p>
                 <p>{"Curso: " + Globais.curso}</p>
