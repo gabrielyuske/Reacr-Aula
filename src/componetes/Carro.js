@@ -9,9 +9,10 @@ export default class Carro extends React.Component {
             ligado: false,
             velAtual: 0,
         }
+        this.ld=this.ligarDesligar.bind(this)
     }
 
-    ligar() {
+    ligarDesligar() {
         //this.state.ligado=true
         //PRA RENDERIZAR PRECISAMOS CHAMAR O SETSTATE
         //this.setState({ligado: !this.state.ligado})
@@ -35,6 +36,13 @@ export default class Carro extends React.Component {
         )
     }
 
+    componentDidMount() {
+        console.log("React")
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("atualizado")
+    }
+
     // acelerar(){
     //     this.setState(
     //         (state,props)=>
@@ -49,7 +57,7 @@ export default class Carro extends React.Component {
                 <p>Modelo: {this.modelo}</p>
                 <p>Ligado: {this.state.ligado ? "SIM" : "NAO"}</p>
                 <p>Velocidade Atual: {this.state.velAtual}</p>
-                <button onClick={() => this.ligar()}>{this.state.ligado ? "Desligar Carro" : "Ligar Carro"}</button>
+                <button onClick={this.ld}>{this.state.ligado ? "Desligar Carro" : "Ligar Carro"}</button>
                 <button onClick={() => this.acelerar()}>Acelerar</button>
 
 

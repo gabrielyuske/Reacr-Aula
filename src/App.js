@@ -13,7 +13,8 @@ import Resultado from "./componetes/Resultado"
 import Caixa from "./componetes/Caixa"
 import Classe from "./componetes/Classe"
 import Carro from "./componetes/Carro"
-
+import Globais from "./componetes/Globais"
+import Info from "./componetes/Info"
 
 
 
@@ -152,6 +153,12 @@ export default function App(){
         <>
             <section className="caixa">
                 <Relogio/>
+
+                <p>{"Canal: " + Globais.canal}</p>
+                <p>{"Curso: " + Globais.curso}</p>
+                <p>{"Ano: " + Globais.ano}</p>
+                ------
+                <Info/>
 
                 <Carro fator={1}/>
 
